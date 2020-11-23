@@ -10,19 +10,19 @@ import UserData from './UserData';
 function App() {
 
   const [inputs, setInputs] = useState({
-    username : '', 
+    username: '',
     email : ''
   });
 
   const { username, email } = inputs;
 
   const onChange = (e) => {
-    
     const {name, value} = e.target;
+
     setInputs({
-      ...inputs, 
+      ...inputs,
       [name] : value
-    });
+    })
   }
 
   const [users, setUsers] = useState(UserData);
@@ -30,9 +30,10 @@ function App() {
   const nextId = useRef(4);
 
   const onCreate = () => {
+
     const user = {
-      id : nextId.current,
-      username,
+      id : nextId,
+      username, 
       email,
       active : false
     }
@@ -40,34 +41,17 @@ function App() {
     setUsers([
       ...users,
       user
-    ]);
+    ]);  
+  } 
 
-    setInputs({
-      username : '',
-      email: '',
-    });
-    
-    nextId.current++;
-  }
-
-  const onRemove = id => setUsers( users.filter(user => user.id !== id));
-  
-  const onToggle = id => (
-    setUsers(
-      users.map(user => (
-        user.id === id ? {...user, active:!user.active} : user
-      ))
-    )
-  );
-  
   return (
     <Wrapper>
       {/* <Hello color="blue" name="김윤규" isSpecial/>
       <Hello/> */}
       {/* <Counter /> */}
-      {/* <InputSample /> */} 
+      {/* <InputSample /> */}  
       <CreateUser username={username} email={email} onChange={onChange} onCreate={onCreate}/>
-      <UserList users={users} onRemove={onRemove} onToggle={onToggle}/>
+      <UserList users={users}/>
     </Wrapper>
   );
 }
